@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Funding">
+  <div class="flex-1">
+    <div
+      class="mx-auto max-w-[1000px] flex my-5 md:my-14 bg-white min-h-[620px] shadow-sm rounded-md border-1 border-slate-50"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14">
+        <div class="flex flex-col gap-8 p-10">
+          <h1 class="leading-none text-4xl font-semibold">Funding</h1>
+          <p class="text-slate-700 text-base font-normal">
+            The Unified Interpreting Corpus (UNIC) project has received funding
+            from the European Union’s Horizon 2020 research and innovation
+            programme under the Marie Skłodowska-Curie grant agreement
+            No. 101108651. Views and opinions expressed are however those of the
+            authors only and do not necessarily reflect those of the European
+            Union or the European Research Executive Agency. Neither the
+            European Union nor the granting authority can be held responsible
+            for them.
+          </p>
+        </div>
+        <div class="flex items-start justify-center px-12 md:pt-[100px] pb-14">
+          <img src="/european-union.png" alt="European Flag" />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

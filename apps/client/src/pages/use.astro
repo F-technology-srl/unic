@@ -1,0 +1,10 @@
+---
+import { UseSharedDataPage } from '@unic/client/corpora-feature';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Use" require_login>
+  <div class="flex-1">
+    <UseSharedDataPage client:load />
+  </div>
+</Layout>

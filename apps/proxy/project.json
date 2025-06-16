@@ -1,0 +1,14 @@
+{
+  "name": "proxy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/proxy/src",
+  "projectType": "application",
+  "targets": {
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -t proxy . -f ./apps/proxy/Dockerfile"
+      }
+    }
+  }
+}

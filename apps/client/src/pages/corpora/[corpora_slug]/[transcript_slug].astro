@@ -1,0 +1,24 @@
+---
+import { DetailCorporaPage } from '@unic/client/corpora-feature';
+import Layout from 'apps/client/src/layouts/Layout.astro';
+
+const { corpora_slug, transcript_slug } = Astro.params;
+const word = Astro.url.searchParams.get('word') || '';
+const offset = Astro.url.searchParams.get('offset') || '';
+const offset_length = Astro.url.searchParams.get('offset-length') || '';
+const alignments_slug = Astro.url.searchParams.get('alignments-slug') || '';
+
+//http://localhost:4321/corpora/cei/cei-1?word=thank&offset=10&offset-length=5&alignments-slug=cei-1-2
+---
+
+<Layout title={transcript_slug ?? ''}>
+  <DetailCorporaPage
+    client:load
+    corpora_slug={corpora_slug}
+    transcript_slug={transcript_slug}
+    wordSearch={word}
+    offset={offset}
+    offsetLength={offset_length}
+    alignment_slug={alignments_slug}
+  />
+</Layout>

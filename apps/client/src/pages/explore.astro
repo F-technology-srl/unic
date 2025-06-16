@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SearchCorporaPage } from '@unic/client/corpora-feature';
+---
+
+<Layout title="Explore">
+  <div class="my-14 mx-20">
+    <SearchCorporaPage client:only />
+  </div>
+</Layout>

@@ -1,0 +1,580 @@
+{
+  "id": "45aa292b-7bcb-4854-9970-780bf2503efc",
+  "prevId": "ac539a76-523a-448d-8241-442d4f6eb94c",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.users_corpora": {
+      "name": "users_corpora",
+      "schema": "",
+      "columns": {
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "userCorporaUniqueIndex": {
+          "name": "userCorporaUniqueIndex",
+          "columns": [
+            {
+              "expression": "user_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "corpora_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "users_corpora_user_uuid_users_user_uuid_fk": {
+          "name": "users_corpora_user_uuid_users_user_uuid_fk",
+          "tableFrom": "users_corpora",
+          "tableTo": "users",
+          "columnsFrom": ["user_uuid"],
+          "columnsTo": ["user_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_corpora_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "users_corpora_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "users_corpora",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "users_corpora_user_uuid_corpora_uuid_pk": {
+          "name": "users_corpora_user_uuid_corpora_uuid_pk",
+          "columns": ["user_uuid", "corpora_uuid"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "salt": {
+          "name": "salt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "platform_role": {
+          "name": "platform_role",
+          "type": "platform_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'standard'"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "verified_at": {
+          "name": "verified_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "emailIndex": {
+          "name": "emailIndex",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": ["email"]
+        }
+      }
+    },
+    "public.transcripts": {
+      "name": "transcripts",
+      "schema": "",
+      "columns": {
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_uuid": {
+          "name": "source_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "full_text": {
+          "name": "full_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_repository_asset_uuid": {
+          "name": "media_repository_asset_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "transcripts_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "transcripts_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transcripts_source_uuid_transcripts_transcript_uuid_fk": {
+          "name": "transcripts_source_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "transcripts",
+          "columnsFrom": ["source_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transcripts_media_repository_asset_uuid_repository_asset_repository_asset_uuid_fk": {
+          "name": "transcripts_media_repository_asset_uuid_repository_asset_repository_asset_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "repository_asset",
+          "columnsFrom": ["media_repository_asset_uuid"],
+          "columnsTo": ["repository_asset_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.corpora": {
+      "name": "corpora",
+      "schema": "",
+      "columns": {
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number_of_visit": {
+          "name": "number_of_visit",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users_corpora_logs": {
+      "name": "users_corpora_logs",
+      "schema": "",
+      "columns": {
+        "users_corpora_logs_uuid": {
+          "name": "users_corpora_logs_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip_user": {
+          "name": "ip_user",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "corpora_uuid_index": {
+          "name": "corpora_uuid_index",
+          "columns": [
+            {
+              "expression": "corpora_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "users_corpora_logs_user_uuid_users_user_uuid_fk": {
+          "name": "users_corpora_logs_user_uuid_users_user_uuid_fk",
+          "tableFrom": "users_corpora_logs",
+          "tableTo": "users",
+          "columnsFrom": ["user_uuid"],
+          "columnsTo": ["user_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_corpora_logs_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "users_corpora_logs_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "users_corpora_logs",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.repository_asset": {
+      "name": "repository_asset",
+      "schema": "",
+      "columns": {
+        "repository_asset_uuid": {
+          "name": "repository_asset_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "bucket_uri": {
+          "name": "bucket_uri",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mime_type": {
+          "name": "mime_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_file_name": {
+          "name": "user_file_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_number": {
+          "name": "file_number",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.alignmnets": {
+      "name": "alignmnets",
+      "schema": "",
+      "columns": {
+        "alignment_uuid": {
+          "name": "alignment_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "full_text": {
+          "name": "full_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "start": {
+          "name": "start",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sorting": {
+          "name": "sorting",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "alignmnets_transcript_uuid_transcripts_transcript_uuid_fk": {
+          "name": "alignmnets_transcript_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "alignmnets",
+          "tableTo": "transcripts",
+          "columnsFrom": ["transcript_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.platform_role": {
+      "name": "platform_role",
+      "schema": "public",
+      "values": ["administrator", "standard"]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -1,0 +1,45 @@
+server {
+  gzip_static on;
+  listen 80;
+
+  location / {
+    proxy_pass_header Set-Cookie;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_read_timeout 300s;
+    client_max_body_size 30G;
+
+    proxy_pass ${CLIENT_APP_URL};
+  }
+
+  location /api {
+    proxy_pass_header Set-Cookie;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+
+    # upload-zip increase timeout to let the server process the file upload and dont close request
+    proxy_read_timeout 600s;
+    proxy_send_timeout 600s;
+    send_timeout 600s;
+
+    client_max_body_size 30G;
+
+    # upload-zip Timeout di connessione al server upstream
+    proxy_connect_timeout 3h;
+    
+    proxy_pass ${API_URL}/api;
+  }
+
+  location /pgadmin4/ {
+      proxy_set_header X-Script-Name /pgadmin4;
+      proxy_set_header X-Scheme $scheme;
+      proxy_set_header Host $host;
+      proxy_pass ${PG_ADMIN_URL}/;
+      proxy_redirect off;
+  }
+  
+}

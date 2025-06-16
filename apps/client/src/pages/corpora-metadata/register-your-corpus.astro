@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { CreateCorporaPage } from '@unic/client/corpora-feature';
+---
+
+<Layout title="Register your corpus metadata" require_login>
+  <div
+    class="flex-1 mx-auto max-w-[868px] p-10 bg-white mt-14 mb-10 w-full shadow-custom-shadow-table rounded-md border-gray-50"
+  >
+    <h1 class="leading-none text-4xl font-semibold text-center pb-10">
+      Register your corpus metadata
+    </h1>
+    <CreateCorporaPage client:only />
+  </div>
+</Layout>

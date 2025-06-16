@@ -1,0 +1,45 @@
+<%- include('partials/head'); %>
+<div style="width: 100%; margin: 0 0 64px">
+  <%- include('partials/header'); %>
+  <div style="width: 515px; margin: auto">
+    <h1
+      style="
+        font-family: sans-serif, Arial;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0px;
+        text-align: center;
+        margin: 48px 0 10px;
+        color: #111928;
+        width: 100%;
+      "
+    >
+      <%= titleEmail %>
+    </h1>
+    <div
+      style="
+        margin: 0;
+        padding: 0px 48px 36px;
+        border-radius: 4px;
+        background-color: #ffffff;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: center;
+        color: #374151;
+      "
+    >
+      <div style="padding-bottom: 10px">
+        <% if (status === 'ACCEPTED') { %> Your registration request has been
+        accepted.<br />
+        Now you are able to access the UNIC platform. <%-
+        include('partials/button', {cta_url: url, cta_text:'Use the UNIC platform'}); %> <% }
+        else { %> Unfortunately, your registration request has been refused.<br />
+        To know the reason, you can write to the administrators at<br /> <a href="mailto:unic@dipintra.it" style="color: #1E429F">unic@dipintra.it</a>. <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); %>

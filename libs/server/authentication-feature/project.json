@@ -1,0 +1,37 @@
+{
+  "name": "server-authentication-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/server/authentication-feature/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/server/authentication-feature",
+        "tsConfig": "libs/server/authentication-feature/tsconfig.lib.json",
+        "packageJson": "libs/server/authentication-feature/package.json",
+        "main": "libs/server/authentication-feature/src/index.ts",
+        "assets": ["libs/server/authentication-feature/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/server/authentication-feature/**/*.ts",
+          "libs/server/authentication-feature/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/server/authentication-feature/jest.config.ts"
+      }
+    }
+  },
+  "tags": ["scope:server", "type:lib"]
+}

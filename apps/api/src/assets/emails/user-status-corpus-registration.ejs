@@ -1,0 +1,43 @@
+<%- include('partials/head'); %>
+<div style="width: 100%; margin: 0 0 64px">
+  <%- include('partials/header'); %>
+  <div style="width: 515px; margin: auto">
+    <h1
+      style="
+        font-family: sans-serif, Arial;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0px;
+        text-align: center;
+        margin: 48px 0 10px;
+        color: #111928;
+        width: 100%;
+      "
+    >
+      <%= titleEmail %>
+    </h1>
+    <div
+      style="
+        margin: 0;
+        padding: 0px 48px 0;
+        border-radius: 4px;
+        background-color: #ffffff;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: center;
+        color: #374151;
+      "
+    >
+      <div style="padding-bottom: 10px">
+        <% if (status === 'current') { %> 
+          <div style="padding-bottom: 40px;">Your registration request for the <b><%= corpusName %></b> corpus has been accepted. Now it’s available for everyone in the Explore section and if you want, you will able to share and upload the corpus data.</div> <%-
+        include('partials/two-buttons.ejs'); %> <% }
+        else { %> Unfortunately, your registration request for the EPIC corpus has been refused. To know the reason, you can write to the administrators at <a href="mailto:unic@dipintra.it" style="color: #1E429F">unic@dipintra.it</a>. <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); %>

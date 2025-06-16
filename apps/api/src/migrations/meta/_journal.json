@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1721824392411,
+      "tag": "0000_bitter_the_call",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1722344949285,
+      "tag": "0001_shallow_joystick",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1722942203538,
+      "tag": "0002_smiling_leper_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1724082502370,
+      "tag": "0003_previous_mystique",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1724227406805,
+      "tag": "0004_parched_rattler",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1724832447646,
+      "tag": "0005_handy_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1724842314295,
+      "tag": "0006_tan_meltdown",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1725354979720,
+      "tag": "0007_remarkable_callisto",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1725452948307,
+      "tag": "0008_regular_mach_iv",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1744700394691,
+      "tag": "0009_many_captain_marvel",
+      "breakpoints": true
+    }
+  ]
+}

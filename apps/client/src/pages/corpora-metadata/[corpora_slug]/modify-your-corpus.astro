@@ -1,0 +1,15 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { UpdateCorporaPage } from '@unic/client/corpora-feature';
+
+const { corpora_slug } = Astro.params;
+---
+
+<Layout title="Modify your corpus metadata" require_login>
+  <div class="flex-1 mx-auto max-w-[868px] p-10 bg-white mt-14 mb-10 w-full">
+    <h1 class="leading-none text-4xl font-semibold text-center pb-10">
+      Modify your corpus metadata
+    </h1>
+    <UpdateCorporaPage acronym={corpora_slug ?? ''} client:only />
+  </div>
+</Layout>

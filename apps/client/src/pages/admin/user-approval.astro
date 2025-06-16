@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { UserApprovalPage } from '@unic/client-user-feature';
+const { searchParams } = Astro.url;
+const token = searchParams.get('token');
+---
+
+<Layout title="Approval" hide_header_buttons require_login require_admin>
+  <UserApprovalPage client:load token={token ?? ''} />
+</Layout>

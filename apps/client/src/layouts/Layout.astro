@@ -1,0 +1,58 @@
+---
+import { AppHeader } from '@unic/client-user-feature';
+import { Footer } from '@unic/core-ui';
+import '../style.css';
+
+interface Props {
+  title: string;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
+  require_login?: boolean;
+  hide_header_buttons?: boolean;
+  require_admin?: boolean;
+}
+
+const {
+  title,
+  hideHeader,
+  hideFooter,
+  require_login,
+  hide_header_buttons,
+  require_admin,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>UNIC | {title}</title>
+  </head>
+
+  <body class="flex flex-col min-h-svh bg-slate-50">
+    {
+      !hideHeader && (
+        <AppHeader
+          client:load
+          require_login={require_login}
+          hideHeaderButtons={hide_header_buttons}
+          require_admin={require_admin}
+        />
+      )
+    }
+    <slot />
+    {!hideFooter && <Footer transition:persist />}
+    <script
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"
+    ></script>
+  </body>
+</html>
+
+<style is:global></style>

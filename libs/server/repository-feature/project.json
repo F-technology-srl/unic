@@ -1,0 +1,37 @@
+{
+  "name": "server-repository-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/server/repository-feature/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/server/repository-feature",
+        "tsConfig": "libs/server/repository-feature/tsconfig.lib.json",
+        "packageJson": "libs/server/repository-feature/package.json",
+        "main": "libs/server/repository-feature/src/index.ts",
+        "assets": ["libs/server/repository-feature/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/server/repository-feature/**/*.ts",
+          "libs/server/repository-feature/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/server/repository-feature/jest.config.ts"
+      }
+    }
+  },
+  "tags": ["scope:server"]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@unic/server/corpora-feature",
+  "version": "0.0.1",
+  "dependencies": {
+    "@unic/database": "*",
+    "@nestjs/common": "^10.0.2",
+    "drizzle-orm": "*",
+    "@nestjs/testing": "^10.0.2",
+    "tslib": "^2.3.0",
+    "@nestjs/swagger": "^7.4.0",
+    "@unic/shared/corpora-dto": "*",
+    "@unic/shared/database-dto": "*",
+    "@unic/server/repository-feature": "0.0.1",
+    "mime-types": "^2.1.35",
+    "@unic/server/authentication-feature": "0.0.1",
+    "@nestjs/jwt": "^10.2.0",
+    "@unic/shared/user-dto": "*",
+    "@unic/shared/global-types": "*",
+    "express": "4.21.2",
+    "archiver": "7.0.1",
+    "fs-extra": "11.3.0",
+    "@unic/server/nest-mailer": "0.0.1"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}

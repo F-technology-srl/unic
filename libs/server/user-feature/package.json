@@ -1,0 +1,21 @@
+{
+  "name": "@unic/server/user-feature",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@nestjs/swagger": "^7.4.0",
+    "@nestjs/common": "^10.0.2",
+    "@unic/shared/user-dto": "0.0.1",
+    "@unic/database": "0.0.1",
+    "@nestjs/jwt": "*",
+    "drizzle-orm": "*",
+    "@unic/server/authentication-feature": "0.0.1",
+    "@nestjs/testing": "^10.0.2",
+    "@unic/shared/database-dto": "*",
+    "@unic/server/nest-mailer": "0.0.1"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}

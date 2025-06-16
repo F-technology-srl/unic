@@ -1,0 +1,2001 @@
+{
+  "id": "fb7ca50e-4a58-4bed-ac6a-d6821879bef6",
+  "prevId": "eef8bad7-5d0b-4bad-86f3-bf8c43804e54",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.users_corpora": {
+      "name": "users_corpora",
+      "schema": "",
+      "columns": {
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "userCorporaUniqueIndex": {
+          "name": "userCorporaUniqueIndex",
+          "columns": [
+            {
+              "expression": "user_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "corpora_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "users_corpora_user_uuid_users_user_uuid_fk": {
+          "name": "users_corpora_user_uuid_users_user_uuid_fk",
+          "tableFrom": "users_corpora",
+          "tableTo": "users",
+          "columnsFrom": ["user_uuid"],
+          "columnsTo": ["user_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_corpora_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "users_corpora_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "users_corpora",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "users_corpora_user_uuid_corpora_uuid_pk": {
+          "name": "users_corpora_user_uuid_corpora_uuid_pk",
+          "columns": ["user_uuid", "corpora_uuid"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "salt": {
+          "name": "salt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "platform_role": {
+          "name": "platform_role",
+          "type": "platform_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'standard'"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profession": {
+          "name": "profession",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "institution": {
+          "name": "institution",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "explanation": {
+          "name": "explanation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "verified_at": {
+          "name": "verified_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status_updated_at": {
+          "name": "status_updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status_updated_by": {
+          "name": "status_updated_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "emailIndex": {
+          "name": "emailIndex",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": ["email"]
+        }
+      }
+    },
+    "public.transcripts": {
+      "name": "transcripts",
+      "schema": "",
+      "columns": {
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_uuid": {
+          "name": "source_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "full_text": {
+          "name": "full_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_repository_asset_uuid": {
+          "name": "media_repository_asset_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "associeted_file_repository_asset_uuid": {
+          "name": "associeted_file_repository_asset_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "event_uuid": {
+          "name": "event_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "text_id": {
+          "name": "text_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "language": {
+          "name": "language",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "language_variety_name": {
+          "name": "language_variety_name",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "date_text": {
+          "name": "date_text",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interaction_format": {
+          "name": "interaction_format",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "delivery_mode": {
+          "name": "delivery_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_gloss_count": {
+          "name": "token_gloss_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "delivery_rate": {
+          "name": "delivery_rate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "working_mode": {
+          "name": "working_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "production_mode": {
+          "name": "production_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "use_of_technology": {
+          "name": "use_of_technology",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "annotation_file_repository_asset_uuid": {
+          "name": "annotation_file_repository_asset_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "transcripts_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "transcripts_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transcripts_source_uuid_transcripts_transcript_uuid_fk": {
+          "name": "transcripts_source_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "transcripts",
+          "columnsFrom": ["source_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transcripts_media_repository_asset_uuid_repository_asset_repository_asset_uuid_fk": {
+          "name": "transcripts_media_repository_asset_uuid_repository_asset_repository_asset_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "repository_asset",
+          "columnsFrom": ["media_repository_asset_uuid"],
+          "columnsTo": ["repository_asset_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transcripts_associeted_file_repository_asset_uuid_repository_asset_repository_asset_uuid_fk": {
+          "name": "transcripts_associeted_file_repository_asset_uuid_repository_asset_repository_asset_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "repository_asset",
+          "columnsFrom": ["associeted_file_repository_asset_uuid"],
+          "columnsTo": ["repository_asset_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "transcripts_annotation_file_repository_asset_uuid_repository_asset_repository_asset_uuid_fk": {
+          "name": "transcripts_annotation_file_repository_asset_uuid_repository_asset_repository_asset_uuid_fk",
+          "tableFrom": "transcripts",
+          "tableTo": "repository_asset",
+          "columnsFrom": ["annotation_file_repository_asset_uuid"],
+          "columnsTo": ["repository_asset_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.corpora": {
+      "name": "corpora",
+      "schema": "",
+      "columns": {
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "number_of_visit": {
+          "name": "number_of_visit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "acronym": {
+          "name": "acronym",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "corpora_acronym_unique": {
+          "name": "corpora_acronym_unique",
+          "nullsNotDistinct": false,
+          "columns": ["acronym"]
+        }
+      }
+    },
+    "public.users_corpora_logs": {
+      "name": "users_corpora_logs",
+      "schema": "",
+      "columns": {
+        "users_corpora_logs_uuid": {
+          "name": "users_corpora_logs_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip_user": {
+          "name": "ip_user",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "corpora_uuid_index": {
+          "name": "corpora_uuid_index",
+          "columns": [
+            {
+              "expression": "corpora_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "users_corpora_logs_user_uuid_users_user_uuid_fk": {
+          "name": "users_corpora_logs_user_uuid_users_user_uuid_fk",
+          "tableFrom": "users_corpora_logs",
+          "tableTo": "users",
+          "columnsFrom": ["user_uuid"],
+          "columnsTo": ["user_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_corpora_logs_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "users_corpora_logs_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "users_corpora_logs",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.repository_asset": {
+      "name": "repository_asset",
+      "schema": "",
+      "columns": {
+        "repository_asset_uuid": {
+          "name": "repository_asset_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "bucket_uri": {
+          "name": "bucket_uri",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mime_type": {
+          "name": "mime_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_file_name": {
+          "name": "user_file_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_number": {
+          "name": "file_number",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "temp": {
+          "name": "temp",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.alignmnets": {
+      "name": "alignmnets",
+      "schema": "",
+      "columns": {
+        "alignment_uuid": {
+          "name": "alignment_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "full_text": {
+          "name": "full_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "start": {
+          "name": "start",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sorting": {
+          "name": "sorting",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "alignmnets_transcript_uuid_transcripts_transcript_uuid_fk": {
+          "name": "alignmnets_transcript_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "alignmnets",
+          "tableTo": "transcripts",
+          "columnsFrom": ["transcript_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "alignmnets_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "alignmnets_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "alignmnets",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.corpora_metadata": {
+      "name": "corpora_metadata",
+      "schema": "",
+      "columns": {
+        "corpora_metadata_uuid": {
+          "name": "corpora_metadata_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version": {
+          "name": "version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "persistent_identifier": {
+          "name": "persistent_identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "citation": {
+          "name": "citation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "article_reference": {
+          "name": "article_reference",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "creator": {
+          "name": "creator",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_information": {
+          "name": "contact_information",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contributors": {
+          "name": "contributors",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "funding_information": {
+          "name": "funding_information",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "availability": {
+          "name": "availability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "license": {
+          "name": "license",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "license_url": {
+          "name": "license_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publication_date": {
+          "name": "publication_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "names_and_links": {
+          "name": "names_and_links",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_language": {
+          "name": "source_language",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_language": {
+          "name": "target_language",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "size_disk_memory": {
+          "name": "size_disk_memory",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "size_tokens": {
+          "name": "size_tokens",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number_of_files": {
+          "name": "number_of_files",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_type": {
+          "name": "media_type",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number_of_interpreters": {
+          "name": "number_of_interpreters",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "anonymization": {
+          "name": "anonymization",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "anonymization_description": {
+          "name": "anonymization_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transcription_status": {
+          "name": "transcription_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transcription_description": {
+          "name": "transcription_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annotation_status": {
+          "name": "annotation_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "anonimatization_status_description": {
+          "name": "anonimatization_status_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignment_status": {
+          "name": "alignment_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "aligment_status_description": {
+          "name": "aligment_status_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata_structure_json": {
+          "name": "metadata_structure_json",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "verified_at": {
+          "name": "verified_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "upload_data_at": {
+          "name": "upload_data_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "corpora_metadata_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "corpora_metadata_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "corpora_metadata",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.transcribers": {
+      "name": "transcribers",
+      "schema": "",
+      "columns": {
+        "transcriber_uuid": {
+          "name": "transcriber_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transcriber_id": {
+          "name": "transcriber_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transcriber_surname": {
+          "name": "transcriber_surname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transcriber_given_name": {
+          "name": "transcriber_given_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "transcribers_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "transcribers_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "transcribers",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.events": {
+      "name": "events",
+      "schema": "",
+      "columns": {
+        "event_uuid": {
+          "name": "event_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "event_date": {
+          "name": "event_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "setting": {
+          "name": "setting",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "setting_specific": {
+          "name": "setting_specific",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "topic_domain": {
+          "name": "topic_domain",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "event_duration": {
+          "name": "event_duration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "event_token_gloss_count": {
+          "name": "event_token_gloss_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "events_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "events_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "events",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.annotators": {
+      "name": "annotators",
+      "schema": "",
+      "columns": {
+        "annotator_uuid": {
+          "name": "annotator_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "annotator_id": {
+          "name": "annotator_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annotator_surname": {
+          "name": "annotator_surname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annotator_given_name": {
+          "name": "annotator_given_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "annotators_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "annotators_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "annotators",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.annotations": {
+      "name": "annotations",
+      "schema": "",
+      "columns": {
+        "annotation_uuid": {
+          "name": "annotation_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annotation_type": {
+          "name": "annotation_type",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annotation_mode": {
+          "name": "annotation_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "language": {
+          "name": "language",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "annotations_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "annotations_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "annotations",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "annotations_transcript_uuid_transcripts_transcript_uuid_fk": {
+          "name": "annotations_transcript_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "annotations",
+          "tableTo": "transcripts",
+          "columnsFrom": ["transcript_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.interpreters": {
+      "name": "interpreters",
+      "schema": "",
+      "columns": {
+        "interpreter_uuid": {
+          "name": "interpreter_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interpreter_id": {
+          "name": "interpreter_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interpreter_surname": {
+          "name": "interpreter_surname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interpreter_given_name": {
+          "name": "interpreter_given_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interpreter_gender": {
+          "name": "interpreter_gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interpreter_sex": {
+          "name": "interpreter_sex",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interpreter_status": {
+          "name": "interpreter_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "interpreter_language_mother_tongue": {
+          "name": "interpreter_language_mother_tongue",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "interpreters_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "interpreters_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "interpreters",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.interpreters_transcripts": {
+      "name": "interpreters_transcripts",
+      "schema": "",
+      "columns": {
+        "interpreter_uuid": {
+          "name": "interpreter_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "interpretersTranscriptsUniqueIndex": {
+          "name": "interpretersTranscriptsUniqueIndex",
+          "columns": [
+            {
+              "expression": "interpreter_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "transcript_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "interpreters_transcripts_interpreter_uuid_interpreters_interpreter_uuid_fk": {
+          "name": "interpreters_transcripts_interpreter_uuid_interpreters_interpreter_uuid_fk",
+          "tableFrom": "interpreters_transcripts",
+          "tableTo": "interpreters",
+          "columnsFrom": ["interpreter_uuid"],
+          "columnsTo": ["interpreter_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "interpreters_transcripts_transcript_uuid_transcripts_transcript_uuid_fk": {
+          "name": "interpreters_transcripts_transcript_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "interpreters_transcripts",
+          "tableTo": "transcripts",
+          "columnsFrom": ["transcript_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "interpreters_transcripts_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "interpreters_transcripts_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "interpreters_transcripts",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "interpreters_transcripts_interpreter_uuid_transcript_uuid_pk": {
+          "name": "interpreters_transcripts_interpreter_uuid_transcript_uuid_pk",
+          "columns": ["interpreter_uuid", "transcript_uuid"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.actors": {
+      "name": "actors",
+      "schema": "",
+      "columns": {
+        "actor_uuid": {
+          "name": "actor_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_surname": {
+          "name": "actor_surname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_given_name": {
+          "name": "actor_given_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_gender": {
+          "name": "actor_gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_sex": {
+          "name": "actor_sex",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_country": {
+          "name": "actor_country",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "actor_language_mother_tongue": {
+          "name": "actor_language_mother_tongue",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "actors_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "actors_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "actors",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.actors_transcripts": {
+      "name": "actors_transcripts",
+      "schema": "",
+      "columns": {
+        "actor_uuid": {
+          "name": "actor_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "actorsTranscriptsUniqueIndex": {
+          "name": "actorsTranscriptsUniqueIndex",
+          "columns": [
+            {
+              "expression": "actor_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "transcript_uuid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "actors_transcripts_actor_uuid_actors_actor_uuid_fk": {
+          "name": "actors_transcripts_actor_uuid_actors_actor_uuid_fk",
+          "tableFrom": "actors_transcripts",
+          "tableTo": "actors",
+          "columnsFrom": ["actor_uuid"],
+          "columnsTo": ["actor_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "actors_transcripts_transcript_uuid_transcripts_transcript_uuid_fk": {
+          "name": "actors_transcripts_transcript_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "actors_transcripts",
+          "tableTo": "transcripts",
+          "columnsFrom": ["transcript_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "actors_transcripts_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "actors_transcripts_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "actors_transcripts",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "actors_transcripts_actor_uuid_transcript_uuid_pk": {
+          "name": "actors_transcripts_actor_uuid_transcript_uuid_pk",
+          "columns": ["actor_uuid", "transcript_uuid"]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "public.alignmentsMetadata": {
+      "name": "alignmentsMetadata",
+      "schema": "",
+      "columns": {
+        "alignment_metadata_uuid": {
+          "name": "alignment_metadata_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transcript_uuid": {
+          "name": "transcript_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignment_type": {
+          "name": "alignment_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignment_mode": {
+          "name": "alignment_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignment_tool": {
+          "name": "alignment_tool",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "alignmentsMetadata_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "alignmentsMetadata_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "alignmentsMetadata",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "alignmentsMetadata_transcript_uuid_transcripts_transcript_uuid_fk": {
+          "name": "alignmentsMetadata_transcript_uuid_transcripts_transcript_uuid_fk",
+          "tableFrom": "alignmentsMetadata",
+          "tableTo": "transcripts",
+          "columnsFrom": ["transcript_uuid"],
+          "columnsTo": ["transcript_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.downloads": {
+      "name": "downloads",
+      "schema": "",
+      "columns": {
+        "download_uuid": {
+          "name": "download_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_uuid": {
+          "name": "user_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "with_data": {
+          "name": "with_data",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "downloads_user_uuid_users_user_uuid_fk": {
+          "name": "downloads_user_uuid_users_user_uuid_fk",
+          "tableFrom": "downloads",
+          "tableTo": "users",
+          "columnsFrom": ["user_uuid"],
+          "columnsTo": ["user_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.downloads_items": {
+      "name": "downloads_items",
+      "schema": "",
+      "columns": {
+        "download_items_uuid": {
+          "name": "download_items_uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "download_uuid": {
+          "name": "download_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "corpora_uuid": {
+          "name": "corpora_uuid",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text_id": {
+          "name": "text_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "word_found": {
+          "name": "word_found",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "offset": {
+          "name": "offset",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "offset_length": {
+          "name": "offset_length",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alignment_id": {
+          "name": "alignment_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "downloads_items_download_uuid_downloads_download_uuid_fk": {
+          "name": "downloads_items_download_uuid_downloads_download_uuid_fk",
+          "tableFrom": "downloads_items",
+          "tableTo": "downloads",
+          "columnsFrom": ["download_uuid"],
+          "columnsTo": ["download_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "downloads_items_corpora_uuid_corpora_corpora_uuid_fk": {
+          "name": "downloads_items_corpora_uuid_corpora_corpora_uuid_fk",
+          "tableFrom": "downloads_items",
+          "tableTo": "corpora",
+          "columnsFrom": ["corpora_uuid"],
+          "columnsTo": ["corpora_uuid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.platform_role": {
+      "name": "platform_role",
+      "schema": "public",
+      "values": ["administrator", "standard"]
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

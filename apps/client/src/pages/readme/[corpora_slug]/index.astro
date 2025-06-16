@@ -1,0 +1,16 @@
+---
+import { ReadmeCorporaPage } from '@unic/client/corpora-feature';
+import Layout from '../../../layouts/Layout.astro';
+
+const { corpora_slug } = Astro.params;
+---
+
+<Layout title="Readme">
+  <div class="flex-1">
+    <div
+      class="mx-auto max-w-[1000px] flex my-5 md:my-14 bg-white p-10 shadow-sm rounded-md border-1 border-slate-50"
+    >
+      <ReadmeCorporaPage acronym={corpora_slug ?? ''} client:only />
+    </div>
+  </div>
+</Layout>

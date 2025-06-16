@@ -1,0 +1,10 @@
+---
+import { ShareCorporaPage } from '@unic/client/corpora-feature';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Share" require_login>
+  <div class="flex-1">
+    <ShareCorporaPage client:load />
+  </div>
+</Layout>

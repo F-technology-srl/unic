@@ -1,0 +1,24 @@
+{
+  "name": "@unic/server/repository-feature",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "@nestjs/swagger": "^7.4.0",
+    "@nestjs/common": "^10.0.2",
+    "@nestjs/platform-express": "^10.0.2",
+    "express": "4.21.2",
+    "multer": "1.4.5-lts.1",
+    "@unic/database": "*",
+    "drizzle-orm": "^0.31.4",
+    "sharp": "^0.33.2",
+    "@unic/shared/global-types": "*",
+    "unzipper": "^0.12.3",
+    "@nestjs/schedule": "^4.1.0",
+    "fs-extra": "^11.2.0",
+    "@nestjs/testing": "^10.0.2",
+    "@unic/server/authentication-feature": "0.0.1"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}

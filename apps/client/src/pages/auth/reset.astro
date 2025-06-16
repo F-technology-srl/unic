@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ResetPasswordForm } from 'libs/client/user-feature/src/lib/components/reset-password-form';
+
+const { searchParams } = Astro.url;
+const token = searchParams.get('token');
+console.log(searchParams);
+---
+
+<Layout title="Reset password" hide_header_buttons>
+  <ResetPasswordForm client:only token=`${token}` />
+</Layout>

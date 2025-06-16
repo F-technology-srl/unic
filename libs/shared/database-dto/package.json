@@ -1,0 +1,6 @@
+{
+  "name": "@unic/shared/database-dto",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

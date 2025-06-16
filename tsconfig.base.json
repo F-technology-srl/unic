@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@unic/client-authorization": [
+        "libs/client/client-authorization/src/index.ts"
+      ],
+      "@unic/client-global-data-access": [
+        "libs/client/global-data-access/src/index.ts"
+      ],
+      "@unic/client-user-feature": ["libs/client/user-feature/src/index.ts"],
+      "@unic/client/corpora-feature": [
+        "libs/client/corpora-feature/src/index.ts"
+      ],
+      "@unic/core-ui": ["libs/client/core-ui/src/index.ts"],
+      "@unic/database": ["libs/server/database/src/index.ts"],
+      "@unic/server-corpora-feature": [
+        "libs/server/corpora-feature/src/index.ts"
+      ],
+      "@unic/server/authentication-feature": [
+        "libs/server/authentication-feature/src/index.ts"
+      ],
+      "@unic/server/nest-mailer": ["libs/server/nest-mailer/src/index.ts"],
+      "@unic/server/repository-feature": [
+        "libs/server/repository-feature/src/index.ts"
+      ],
+      "@unic/server/user-feature": ["libs/server/user-feature/src/index.ts"],
+      "@unic/shared/corpora-dto": ["libs/shared/corpora-dto/src/index.ts"],
+      "@unic/shared/database-dto": ["libs/shared/database-dto/src/index.ts"],
+      "@unic/shared/global-types": ["libs/shared/global-types/src/index.ts"],
+      "@unic/shared/user-dto": ["libs/shared/user-dto/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
