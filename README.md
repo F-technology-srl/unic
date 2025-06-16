@@ -1,6 +1,6 @@
 # UNIC: Unified Interpreting Corpus platform
 
-Visit the website here: [https://unic.dipintra.it/](https://unic.dipintra.it/) 
+Visit the website here: [https://unic.dipintra.it/](https://unic.dipintra.it/) \
 Contact us: [unic@dipintra.it](mailto:unic@dipintra.it)
 
 # Contribute to the metadata schema for interpreting corpora
