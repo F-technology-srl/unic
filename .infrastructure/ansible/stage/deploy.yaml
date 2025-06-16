@@ -1,0 +1,30 @@
+- hosts: stage
+  remote_user: ftechnology
+  vars_prompt:
+    - name: release_version
+      prompt: What is the version of the deployment?
+      private: no
+
+  tasks:
+    - name: Creates project dir
+      file:
+        path: /home/ftechnology/projects/unic
+        state: directory
+
+    - name: Copy docker-compose
+      ansible.builtin.template:
+        src: ./docker-compose.yaml.j2
+        dest: /home/ftechnology/projects/unic/docker-compose.yml
+
+    # If need to change, connect in ssh and change
+    # - name: Copy .env file
+    #   ansible.builtin.copy:
+    #     src: ./.env
+    #     dest: /home/ftechnology/projects/unic/.env
+
+    - name: Start up
+      community.docker.docker_compose_v2:
+        project_src: /home/ftechnology/projects/unic
+        pull: always
+        files:
+          - /home/ftechnology/projects/unic/docker-compose.yml

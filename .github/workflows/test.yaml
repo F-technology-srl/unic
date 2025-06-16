@@ -1,0 +1,93 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://npm.pkg.github.com'
+          cache: 'pnpm'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint affected
+        run: pnpm nx affected:lint --base=origin/main
+
+      - name: Unit test affected
+        run: pnpm nx affected:test --base=origin/main
+
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://npm.pkg.github.com'
+          cache: 'pnpm'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Affected build to check typescript errors
+        run: pnpm nx affected:build --base=origin/main
+
+  # e2e:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+
+  #     - uses: pnpm/action-setup@v3
+  #       with:
+  #         version: 8
+
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20.x
+  #         registry-url: 'https://npm.pkg.github.com'
+  #         cache: 'pnpm'
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  #     - name: Cypress install
+  #       uses: cypress-io/github-action@v6
+  #       with:
+  #         runTests: false
+
+  #     - run: pnpm install --frozen-lockfile
+
+  #     - name: e2e test
+  #       run: pnpm nx affected:e2e --base=origin/main

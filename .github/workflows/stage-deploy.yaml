@@ -1,0 +1,31 @@
+name: stage-deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'version to deploy'
+        required: true
+        default: 'latest'
+
+jobs:
+  stage-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Write dynamic inventory ansible host
+        run: |
+          echo "${{ secrets.ANSIBLE_HOSTS }}" > .infrastructure/ansible/stage/hosts.cfg
+
+      - name: Run ansible deploy playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: stage/deploy.yaml
+          directory: ./.infrastructure/ansible
+          key: ${{ secrets.DEPLOYER_SSH_PRIVATE_KEY }}
+          options: |
+            --extra-vars "release_version=${{ github.event.inputs.version }}"

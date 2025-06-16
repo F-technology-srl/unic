@@ -1,0 +1,92 @@
+services:
+  db:
+    image: postgres:16
+    container_name: unic-db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    networks:
+      - db_conn
+
+  api:
+    image: ghcr.io/f-technology-srl/unic-api:${release_version}
+    container_name: unic-api
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      db_conn:
+      app_conn:
+    volumes:
+      - ./unic-temp:/app/${PATH_TEMP}
+      - ./unic-data:/app/${PATH_DISK}
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '5'
+
+  client:
+    image: ghcr.io/f-technology-srl/unic-client:${release_version}
+    container_name: unic-client
+    restart: always
+    depends_on:
+      - api
+    networks:
+      app_conn:
+
+  db-backup:
+    image: martlark/pg_dump:16.1
+    container_name: unic-db-backup
+    env_file:
+      - .env
+    volumes:
+      - ./backups-db:/dump
+    networks:
+      - db_conn
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: unic-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PSW}
+    networks:
+      - app_conn
+      - db_conn
+
+  proxy:
+    image: ghcr.io/f-technology-srl/unic-proxy:${release_version}
+    container_name: unic-proxy
+    restart: always
+    environment:
+      API_URL: http://unic-api:3000
+      CLIENT_APP_URL: http://unic-client:4321
+      PG_ADMIN_URL: http://unic-pgadmin:80
+    networks:
+      app_conn:
+      tier_0:
+        ipv4_address: 172.20.0.10
+    depends_on:
+      - api
+      - client
+
+volumes:
+  db-data:
+  unic-data:
+  unic-temp:
+  backups-data:
+
+networks:
+  app_conn:
+  db_conn:
+  tier_0:
+    name: network_tier_0
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
